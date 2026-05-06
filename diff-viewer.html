@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dokumentendringer – Bekketrappa Borettslag 2026</title>
+<style>
+  :root {
+    --add:    #d4edda;
+    --del:    #f8d7da;
+    --add-border: #28a745;
+    --del-border: #dc3545;
+    --neutral: #e9ecef;
+    --card-bg: #fff;
+    --header-bg: #2c3e50;
+    --tab-active: #3498db;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f8; color: #222; }
+  header {
+    background: var(--header-bg); color: #fff;
+    padding: 1.5rem 2rem; text-align: center;
+  }
+  header h1 { font-size: 1.6rem; margin-bottom: .3rem; }
+  header p  { font-size: .95rem; opacity: .8; }
+  .tabs {
+    display: flex; justify-content: center; gap: 1rem;
+    background: #fff; padding: 1rem; border-bottom: 2px solid #ddd;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .tab {
+    padding: .6rem 1.6rem; border-radius: 4px; cursor: pointer;
+    border: 2px solid transparent; font-weight: 600; font-size: 1rem;
+    background: #eee; transition: all .2s;
+  }
+  .tab.active { background: var(--tab-active); color: #fff; border-color: var(--tab-active); }
+  .tab:hover:not(.active) { background: #d0e8ff; }
+  .doc-section { display: none; padding: 1.5rem; max-width: 960px; margin: 0 auto; }
+  .doc-section.visible { display: block; }
+  .intro {
+    background: #fff; border-radius: 8px; padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem; border-left: 4px solid var(--tab-active);
+  }
+  .intro p { margin-bottom: .4rem; }
+  .intro .badge-add  { background: var(--add);  color: #155724; padding: 2px 8px; border-radius: 3px; font-size: .85rem; font-weight: 600; }
+  .intro .badge-del  { background: var(--del);  color: #721c24; padding: 2px 8px; border-radius: 3px; font-size: .85rem; font-weight: 600; }
+  .intro .badge-chg  { background: #fff3cd; color: #856404; padding: 2px 8px; border-radius: 3px; font-size: .85rem; font-weight: 600; }
+  .section-heading {
+    margin: 2rem 0 .8rem; font-size: 1.05rem;
+    color: #555; text-transform: uppercase; letter-spacing: .05em;
+    border-bottom: 1px solid #ccc; padding-bottom: .3rem;
+  }
+  .card {
+    background: var(--card-bg); border-radius: 8px;
+    margin-bottom: 1rem; overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  }
+  .card-header {
+    display: flex; align-items: center; gap: .7rem;
+    padding: .75rem 1rem; font-weight: 700; font-size: .95rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .card-header.add  { background: var(--add);  border-left: 5px solid var(--add-border); }
+  .card-header.del  { background: var(--del);  border-left: 5px solid var(--del-border); }
+  .card-header.chg  { background: #fff3cd;     border-left: 5px solid #e6a817; }
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: .75rem; font-weight: 700; text-transform: uppercase;
+  }
+  .badge-add { background: #28a745; color: #fff; }
+  .badge-del { background: #dc3545; color: #fff; }
+  .badge-chg { background: #e6a817; color: #fff; }
+  .card-body { padding: 1rem; }
+  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .panels { grid-template-columns: 1fr; } }
+  .panel { border-radius: 6px; padding: .8rem; font-size: .9rem; line-height: 1.6; }
+  .panel.before { background: #fff5f5; border: 1px solid #f5c6cb; }
+  .panel.after  { background: #f0fff4; border: 1px solid #c3e6cb; }
+  .panel-label { font-size: .75rem; font-weight: 700; text-transform: uppercase;
+    margin-bottom: .4rem; opacity: .7; letter-spacing: .06em; }
+  .single-panel { background: #f0fff4; border: 1px solid #c3e6cb;
+    border-radius: 6px; padding: .8rem; font-size: .9rem; line-height: 1.6; }
+  .del-panel { background: #fff5f5; border: 1px solid #f5c6cb;
+    border-radius: 6px; padding: .8rem; font-size: .9rem; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dokumentendringer 2026 &#8211; Bekketrappa Borettslag</h1>
+  <p>Vedtatt p&#229; ordin&#230;r generalforsamling 13. juni 2026 &nbsp;&#183;&nbsp; Sammenligning av ny og gammel versjon</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showDoc('husorden', this)">Husordensregler</button>
+  <button class="tab" onclick="showDoc('vedtekter', this)">Vedtekter</button>
+</div>
+
+<!-- ============================================================
+     HUSORDENSREGLER
+     ============================================================ -->
+<div id="husorden" class="doc-section visible">
+  <div class="intro">
+    <p>Husordensreglene er revidert p&#229; ordin&#230;r generalforsamling <strong>13.06.2026</strong>.
+    Hovedendringene er klarere struktur med nummererte avsnitt, tydeligere lovhenvisninger og et oppdatert s&#248;knadsskjema for dyrehold.</p>
+    <p style="margin-top:.5rem">
+      <span class="badge-add">Ny tekst</span>&nbsp;
+      <span class="badge-del">Fjernet tekst</span>&nbsp;
+      <span class="badge-chg">Endret formulering</span>
+    </p>
+  </div>
+
+  <div class="section-heading">Tittel og datoer</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> Tittel og revisjonsdato</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          HUSORDENSREGLER FOR BEKKETRAPPA BORETTSLAG<br>
+          Vedtatt i styrem&#248;te 29.03.2019. Endret p&#229; ordin&#230;r generalforsamling 09.05.22, 14.05.2025
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          Husordensregler for Bekketrappa borettslag<br>
+          Vedtatt i styrem&#248;te 29.03.2019. Endret p&#229; ordin&#230;r generalforsamling 09.05.2022, og 14.05.2025. <strong>Revidert p&#229; ordin&#230;r generalforsamling 13.06.2026.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">Nye innledende seksjoner</div>
+
+  <div class="card">
+    <div class="card-header add"><span class="badge badge-add">Ny</span> Form&#229;l (ny seksjon)</div>
+    <div class="card-body">
+      <div class="single-panel">
+        Husordensreglene har til form&#229;l &#229; sikre god orden, trivsel og trygghet for alle som bor i Bekketrappa borettslag, samt &#229; sikre forsvarlig bruk og vedlikehold av eiendommen.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header add"><span class="badge badge-add">Ny</span> Definisjoner og virkeomr&#229;de (ny seksjon)</div>
+    <div class="card-body">
+      <div class="single-panel">
+        Med <em>beboer</em> menes i disse reglene andelseiere, leietakere og andre som har bruksrett til en bolig i borettslaget. Reglene gjelder for alle som oppholder seg i borettslaget, herunder beboerne og deres bes&#248;kende.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 1 Husordensreglene</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 1 &#8211; Ny struktur og lovhenvisning til borettslagsloven &#167; 5-22</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (ett avsnitt)</div>
+          Andelseier plikter &#229; f&#248;lge husordensreglene og er ansvarlig for at de overholdes av alle i husstanden og andre som gis adgang til boligen. Vesentlige brudd p&#229; husordensreglene er &#229; anse som mislighold av andelseiers forpliktelser overfor borettslaget. Andelseiers &#248;vrige forpliktelser f&#248;lger av borettslagsloven og borettslagets vedtekter. Som vesentlig brudd regnes blant annet utilb&#248;rlig oppf&#248;rsel som skaper vesentlig ulempe eller sjenanse for andre.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (tre nummererte avsnitt)</div>
+          <strong>(1)</strong> Andelseieren plikter &#229; f&#248;lge husordensreglene og er ansvarlig for at de overholdes av alle i husstanden og andre som gis adgang til boligen.<br><br>
+          <strong>(2)</strong> Vesentlige brudd er &#229; anse som mislighold. Vesentlig mislighold kan gi borettslaget rett til &#229; kreve andelen solgt etter <em>borettslagsloven &#167; 5-22</em>. Andelseierens &#248;vrige forpliktelser f&#248;lger av borettslagsloven og borettslagets vedtekter.<br><br>
+          <strong>(3)</strong> Som vesentlig brudd regnes blant annet utilb&#248;rlig oppf&#248;rsel som skaper vesentlig ulempe eller sjenanse for andre.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 2 Ro</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 2 (3) &#8211; S&#248;ndagsro: &#171;b&#248;r&#187; &#8594; &#171;skal&#187;, lovhenvisning til helligdagsfredloven &#167; 3 lagt til</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          P&#229; s&#248;ndager og helligdager <strong>b&#248;r</strong> st&#248;yende arbeider unng&#229;s.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          P&#229; s&#248;ndager og helligdager <strong>skal</strong> st&#248;yende arbeider unng&#229;s, jf. <em>helligdagsfredloven &#167; 3</em>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 3 Bruk av balkongene</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 3 &#8211; Omstrukturert til seks nummererte avsnitt; Viscenario-referanse fjernet</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (frittstende avsnitt)</div>
+          Lufting og t&#248;rking av t&#248;y kan skje p&#229; balkonger og uteplasser...<br><br>
+          Det er kun tillatt &#229; benytte el- eller gassgrill...<br><br>
+          Grilling p&#229; borettslagets fellesareal...<br><br>
+          Balkonger/terrasser skal ikke brukes til oppbevaring...<br><br>
+          Det er ikke tillatt &#229; riste gulvtepper/ryer, senget&#248;y over kanten p&#229; balkong.<br><br>
+          Det tillates &#229; ha ekstra hyggebelysning...<br><br>
+          Markiser og levegger skal f&#248;lge godkjente fargevalg... Fargekoder er oppgitt i <strong>Viscenario</strong>.<br><br>
+          Det er ikke tillatt &#229; mate fugler...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (seks nummererte avsnitt)</div>
+          <strong>(1)</strong> Lufting og t&#248;rking av t&#248;y p&#229; balkongene og uteplassene...<br><br>
+          <strong>(2)</strong> El- eller gassgrill p&#229; balkongene og private uteplasser. Grilling p&#229; fellesareal jf. &#167; 8 (2).<br><br>
+          <strong>(3)</strong> Balkongene og terrassene ikke til oppbevaring. Risting forbudt. Ryddige og tilgjengelige som r&#248;mningsvei.<br><br>
+          <strong>(4)</strong> Hyggebelysning tillatt, men ikke til sjenanse.<br><br>
+          <strong>(5)</strong> Markiser og levegger f&#248;lger styrets godkjente farger og st&#248;rrelser. Viscenario-referanse <strong>fjernet</strong>; kontakt styret for retningslinjer.<br><br>
+          <strong>(6)</strong> Mating av fugler/dyr fra balkongene forbudt.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 4 Parkering</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 4 &#8211; Tre nummererte avsnitt; skrivefeil rettet (&#171;liknende&#187; &#8594; &#171;lignende&#187;)</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          Parkering skal kun skje p&#229; anviste plasser i borettslagets [sic].<br>
+          ...Det er ikke tillatt og [sic] utf&#248;re reparasjoner eller <strong>liknende</strong>...<br><br>
+          De som disponerer garasjeplass... Felles garasjeanlegg...<br><br>
+          Feilparkering vil b&#248;telegges...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          <strong>(1)</strong> Parkering i borettslaget. ...ikke tillatt &#229; utf&#248;re reparasjoner eller <strong>lignende</strong>...<br><br>
+          <strong>(2)</strong> Garasjereglement inkl. brannsikkerhet og elbil-lading.<br><br>
+          <strong>(3)</strong> Feilparkering b&#248;telegges av <em>parkeringsselskapet</em>. Ulovlig parkering f&#248;rer til borttauing.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 5 Dyrehold</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 5 &#8211; Ni nummererte avsnitt; presise lovhenvisninger</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (blanding av avsnitt og nummerert liste 1&#8211;5)</div>
+          ...Dyrehold tillates kun etter s&#248;knad til styret...<br><br>
+          1. Kjent med <em>politivedtektene angående dyrehold</em>...<br>
+          2. Fjerne ekskrementer...<br>
+          3. Holdes borte fra lekeplasser...<br>
+          4. Ansvarlig og erstatningspliktig...<br>
+          5. Skriftlige berettigede klager...<br><br>
+          Dyr skal ikke ferdes alene...<br><br>
+          <strong>Antall dyr:</strong> Borettslaget kan sette begrensninger...<br>
+          <strong>Midlertidig dyrepass:</strong> Kortvarig dyrepass krever ikke godkjenning...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (ni nummererte avsnitt)</div>
+          <strong>(1)</strong> Dyrehold etter s&#248;knad. Styrets behandling innenfor <em>borettslagsloven &#167; 5-11 (4)</em>.<br><br>
+          <strong>(2)</strong> Kjent med <em>forskrift 6. juni 2007 nr. 577 om politivedtekt for Oslo kommune &#167; 6-1</em>. Hundene i b&#229;nd.<br><br>
+          <strong>(3)</strong> Ekskrementer fjernes straks.<br><br>
+          <strong>(4)</strong> Dyrene holdes borte fra lekeplassene og sandkassene.<br><br>
+          <strong>(5)</strong> Ansvar og erstatningsplikt for skader.<br><br>
+          <strong>(6)</strong> Klager kan f&#248;re til krav om fjerning av dyret.<br><br>
+          <strong>(7)</strong> Dyrene ikke alene p&#229; borettslagets omr&#229;de.<br><br>
+          <strong>(8)</strong> Styret kan sette begrensninger p&#229; antall dyr per boenhet.<br><br>
+          <strong>(9)</strong> Kortvarig dyrepass (maks &#233;n m&#229;ned) krever ikke godkjenning.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 6 Antenner</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 6 &#8211; Delt i to nummererte avsnitt (innhold uendret)</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (ett avsnitt)</div>
+          Etter s&#248;knad til styret kan det gis tillatelse til oppsetting av antenner. Det tillates ikke satt opp parabol/ eller andre antenner som virker skjemmende eller som er skadelig for bygningene.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (to avsnitt)</div>
+          <strong>(1)</strong> Etter s&#248;knad til styret kan det gis tillatelse til oppsetting av antenner.<br><br>
+          <strong>(2)</strong> Det tillates ikke satt opp parabol eller andre antenner som virker skjemmende, eller som er skadelige for bygningene.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 7 Avfall</div>
+
+  <div class="card">
+    <div class="card-header add"><span class="badge badge-add">Ny</span> &#167; 7 (3) &#8211; Avfall i ganger/trapper kan gi gebyr</div>
+    <div class="card-body">
+      <div class="single-panel">
+        <strong>(3)</strong> Avfall skal ikke etterlates i gangene, trappene, oppgangene eller utenfor inngangspartiene. Feilaktig avfallsh&#229;ndtering kan medf&#248;re gebyr.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 8 Fellesarealer</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 8 (1) &#8211; &#171;Andelseierne&#187; &#8594; &#171;Beboerne&#187; plikter &#229; bruke terrassene</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          <strong>Andelseierne</strong> plikter &#229; bruke terrassene i henhold til regler...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          <strong>Beboerne</strong> plikter &#229; bruke terrassene i henhold til regler...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 8 (2) &#8211; Tillatte grilltyper p&#229; takterrassen kobles til &#167; 3 (2)</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          Grilling er tillatt p&#229; plasser der det er anlagt metallplater for dette. Kun gass og elektriske griller er tillatt.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          <strong>(2)</strong> Grilling er tillatt p&#229; plasser der det er anlagt metallplater for dette. Kun de grilltyper som er tillatt etter <em>&#167; 3 (2)</em>, er tillatt p&#229; takterrassene.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 9 Solavskjerming</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 9 &#8211; Viscenario-referanse fjernet; styret kontaktes for fargekoder</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          Det er tillatt &#229; montere solavskjerming etter n&#230;rmere angitte retningslinjer...<br><br>
+          Fargekoder er oppgitt i <strong>Viscenario</strong>. Solavskjerming og innsynsavskjerming er ikke en permanent l&#248;sning og krever ikke s&#248;knad om fasadeendring.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          <strong>(1)</strong> Godkjent solavskjerming skal f&#248;lge borettslagets retningslinjer for farge og st&#248;rrelse, jf. &#167; 3 (4). Gjeldende fargekoder og &#248;vrige retningslinjer f&#229;s ved henvendelse til styret.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">&#167; 10 Endring av husordensreglene</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> &#167; 10 &#8211; Delt i to nummererte avsnitt (innhold tilnærmet uendret)</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (ett avsnitt)</div>
+          Husordensreglene kan endres av borettslagets generalforsamling. Vedtak om endring skjer med alminnelig flertall av de avgitte stemmer. Forslag av endring av reglene m&#229; sendes styret innen den frist som fremg&#229;r av borettslagets vedtekter. Generalforsamlingen kan ikke behandle endringsforslag som ikke er nevnt i innkallingen.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (to avsnitt)</div>
+          <strong>(1)</strong> Husordensreglene kan endres av borettslagets generalforsamling. Vedtak om endring skjer med alminnelig flertall av de avgitte <em>stemmene</em>.<br><br>
+          <strong>(2)</strong> Forslag <em>om</em> endring av reglene m&#229; sendes styret innen den frist som fremg&#229;r av borettslagets vedtekter. Generalforsamlingen kan ikke behandle endringsforslag som ikke er nevnt i innkallingen.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">S&#248;knad om dyrehold (skjema)</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> Oppdatert s&#248;knadsskjema &#8211; lovhenvisninger og forbedret struktur</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          &#8211; Nummerert erkl&#230;ring (1&#8211;7) med formatfeil<br>
+          &#8211; Refererer til &#171;politivedtektene ang&#229;ende dyrehold&#187;<br>
+          &#8211; Styrets tillatelse med nummerert liste (1. 2.)
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          &#8211; Erkl&#230;ring uten nummerering, full tekst<br>
+          &#8211; Refererer til &#171;forskrift 6. juni 2007 nr. 577 om politivedtekt for Oslo kommune &#167; 6-1&#187;<br>
+          &#8211; Ny setning: &#171;Jeg erkl&#230;rer meg villig til &#229; godta de endringer i bestemmelsene om dyrehold som generalforsamlingen vedtar. Jeg er kjent med at styret kan fastsette n&#230;rmere retningslinjer for dyrehold innenfor rammen av husordensreglene.&#187;<br>
+          &#8211; Renere layout for styrets tillatelse/avslag
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- end #husorden -->
+
+
+<!-- ============================================================
+     VEDTEKTER
+     ============================================================ -->
+<div id="vedtekter" class="doc-section">
+  <div class="intro">
+    <p>Vedtektene er revidert p&#229; ordin&#230;r generalforsamling <strong>13.06.2026</strong>.
+    Endringene gjelder primært presisering av spr&#229;k, nye lovhenvisninger, endring i styresammensetning og fjerning av gebyrbestemmelse.</p>
+    <p style="margin-top:.5rem">
+      <span class="badge-add">Ny tekst</span>&nbsp;
+      <span class="badge-del">Fjernet tekst</span>&nbsp;
+      <span class="badge-chg">Endret formulering</span>
+    </p>
+  </div>
+
+  <div class="section-heading">Tittel og datoer</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> Tittel og revisjonsdato</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          Vedtekter<br>
+          for Bekketrappa borettslag org nr 920 666 914<br><br>
+          vedtatt i stiftelsesm&#248;te 05.03.2018, endret p&#229; ekstraordin&#230;r generalforsamling 02.05.2019 og ordin&#230;r generalforsamling 14.05.2025
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          Vedtekter for Bekketrappa borettslag<br>
+          Organisasjonsnummer: 920 666 914<br><br>
+          Vedtatt i stiftelsesm&#248;te 05.03.2018, endret p&#229; ekstraordin&#230;r generalforsamling 02.05.2019, ordin&#230;r generalforsamling 14.05.2025, <strong>revidert p&#229; ordin&#230;r generalforsamling 13.06.2026</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">1-3 Samarbeid med &#248;vrige boligselskaper</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 1-3 &#8211; Ny tittel, tre avsnitt, Vollebekk-referanse fjernet</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere: &#171;Fellesfunksjoner med andre boligselskaper&#187;</div>
+          Borettslaget vil ha en del fellesfunksjoner med de andre boligselskapene p&#229; <strong>Vollebekk</strong>. Det legges opp til at kostnadene forbundet med drift og vedlikehold av disse fellesfunksjonene fordeles mellom eierne etter en br&#248;k basert p&#229; antall boliger eller bebygget areal.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;: &#171;Samarbeid med &#248;vrige boligselskaper i omr&#229;det&#187;</div>
+          <strong>(1)</strong> Borettslaget kan ing&#229; og opprettholde avtaler med de &#248;vrige boligselskapene i omr&#229;det om etablering, drift og vedlikehold av felles anlegg og tjenester.<br><br>
+          <strong>(2)</strong> Kostnadene fordeles mellom de deltakende boligselskapene etter vilk&#229;r fastsatt i den enkelte avtale, basert p&#229; m&#229;lbare st&#248;rrelser som antall boliger eller bebygget areal.<br><br>
+          <strong>(3)</strong> Styret ing&#229;r og reforhandler slike avtaler p&#229; borettslagets vegne.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">2-1 Andeler</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 2-1 (1) &#8211; &#171;kroner 5&#160;000,-&#187; &#8594; &#171;kroner 5&#160;000&#187;</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          Andelene skal v&#230;re p&#229; kroner 5&#160;000<strong>,-</strong>.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          Andelene skal v&#230;re p&#229; kroner 5&#160;000.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">2-2 Overf&#248;ring av andel</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 2-2 (3) &#8211; &#171;kap. 2&#187; &#8594; &#171;kapittel 2&#187;</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...dersom ervervet vil v&#230;re i strid med <strong>kap. 2</strong> i disse vedtektene.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...dersom ervervet vil v&#230;re i strid med <strong>kapittel 2</strong> i disse vedtektene.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">3-2 Interne forkj&#248;psberettigede</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 3-2 (2) &#8211; &#171;2 &#229;r&#187; &#8594; &#171;to &#229;r&#187;; oppdatert listemerknad</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...dersom partene har bodd sammen i minst <strong>2 &#229;r</strong>...<br>
+          (Bulletpunkter med * )
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...dersom partene har bodd sammen i minst <strong>to &#229;r</strong>...<br>
+          (Bulletpunkter med &#147;?&#148;-tegn)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">3-3 Behandlingsregler og frister</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 3-3 (3) &#8211; &#171;5 x Rettsgebyret&#187; &#8594; &#171;fem ganger rettsgebyret&#187;</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...rett til &#229; kreve et vederlag p&#229; opptil <strong>5 x Rettsgebyret</strong>.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...rett til &#229; kreve et vederlag p&#229; opptil <strong>fem ganger rettsgebyret</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">3-4 Rettsovergang til n&#230;rst&#229;ende</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 3-4 &#8211; Omstrukturert fra ett langt avsnitt til to nummererte avsnitt med punktliste</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (ett langt avsnitt)</div>
+          Forkj&#248;psretten kan ikke gj&#248;res gjeldende n&#229;r andelen overdras til ektefelle, til andelseierens eller ektefellens slektning i rett opp- eller nedstigende linje, til fosterbarn... [lang opplisting i fl&#248;ytende tekst]
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (to nummererte avsnitt med punktliste)</div>
+          <strong>(1)</strong> Forkj&#248;psretten kan ikke gj&#248;res gjeldende n&#229;r andelen overdras til:<br>
+          ektefelle, slektning i rett linje, fosterbarn, s&#248;sken, husstandsmedlem de siste to &#229;r, leietaker hos andelseier, borettslagets leietaker.<br><br>
+          <strong>(2)</strong> Forkj&#248;psretten kan heller ikke gj&#248;res gjeldende ved skifte etter separasjon/skilsmisse eller etter husstandsfellesskapsloven &#167; 3.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">4-1 Boretten</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 4-1 (4) &#8211; &#171;markiser&#187; fjernet fra liste over forbudte innretninger; &#171;utomhusareal&#187; &#8594; &#171;uteareal&#187;</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...gjerde, tak, skillevegger, gulv, <strong>markiser</strong> eller andre faste innretninger p&#229; sitt <strong>utomhusareal</strong>...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...gjerde, tak, skillevegger, gulv, eller andre faste innretninger p&#229; sitt <strong>uteareal</strong>... (&#171;markiser&#187; er fjernet fra listen)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header del"><span class="badge badge-del">Fjernet</span> 4-1 (5) &#8211; &#171;Vedrørende fasader vises til husordensreglene&#187; er fjernet</div>
+    <div class="card-body">
+      <div class="del-panel">
+        Fjernet avsnitt: <em>&#171;Vedrørende fasader vises til husordensreglene.&#187;</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header add"><span class="badge badge-add">Ny</span> 4-1 (6) &#8211; Utleie av parkeringsplass unntas fra bestemmelsene om overlating av bruk</div>
+    <div class="card-body">
+      <div class="single-panel">
+        Bestemmelsene om overlating av bruk i punkt 4-2 gjelder ikke for utleie av parkeringsplass.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 4-1 (7/8) &#8211; &#171;handikappede / HC-plass&#187; &#8594; &#171;tilrettelagt plass&#187;; modernisert spr&#229;k</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (avsnitt 8)</div>
+          ...tilpasset <strong>handikappede</strong>...<br>
+          ...behov for <strong>handikapplass</strong>.<br>
+          ...gj&#248;re krav p&#229; <strong>HC-plass</strong>...<br>
+          ...<strong>Styrets beslutning</strong> (stor S) om &#229; bytte plass...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (avsnitt 7)</div>
+          ...tilpasset <strong>personer med nedsatt funksjonsevne</strong>...<br>
+          ...behov for en <strong>tilrettelagt plass</strong>.<br>
+          ...forutsetning at vedkommende disponerer garasjeplass...<br>
+          ...<strong>styrets beslutning</strong> (liten s) om &#229; bytte plass...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">4-3 Bygningsmessige arbeider</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 4-3 (2) &#8211; &#171;markiser mv.&#187; fjernet fra liste over eksteriørendringer</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...herunder oppsetting av private radio- og TV-antenner, <strong>markiser mv.</strong> &#8211; er ikke tillatt uten styrets forutg&#229;ende skriftlige samtykke.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...herunder oppsetting av private radio- og TV-antenner, <strong>mv.</strong> &#8211; er ikke tillatt uten styrets forutg&#229;ende skriftlige samtykke. (&#171;markiser&#187; er fjernet fra listen)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">6-1 Felleskostnader</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 6-1 &#8211; Fordelingsn&#248;kkelen definert direkte i (1); avsnitt renummerert</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          <strong>(1)</strong> Den enkelte andelseier er ansvarlig for felleskostnadene etter en <em>n&#248;kkel</em> fastsatt ved stiftelsen av borettslaget. N&#248;kkelen ligger fast og kan bare endres etter borettslagslovens &#167; 5-19.<br><br>
+          <strong>(2)</strong> Felleskostnader fremkommer ved at 50% av kostnadene fordeles likt mellom andelene, og 50% etter leilighetenes innbyrdes areal...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          <strong>(1)</strong> Den enkelte andelseieren er ansvarlig for felleskostnadene etter en <em>fordelingsn&#248;kkel</em> fastsatt ved stiftelsen av borettslaget. <strong>Fordelingsn&#248;kkelen fremkommer ved at 50 prosent av kostnadene fordeles likt mellom andelene og 50 prosent etter leilighetenes innbyrdes areal (BRA-areal, eksklusive balkonger...). Fordelingsn&#248;kkelen</strong> ligger fast og kan bare endres etter borettslagsloven &#167; 5-19.<br><br>
+          (Det separate avsnitt (2) med fordelingsbeskrivelse er integrert i (1).)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">7-1 Mislighold</div>
+
+  <div class="card">
+    <div class="card-header del"><span class="badge badge-del">Fjernet</span> 7-1 &#8211; Gebyrbestemmelse p&#229; kr 1&#160;000 er fjernet</div>
+    <div class="card-body">
+      <div class="del-panel">
+        Fjernet setning: <em>&#171;Styret kan gi gebyr til beboere p&#229; kroner 1000 i tilfeller hvor beboere som bryter husordensregler eller vedtekter ikke retter opp i dette etter p&#229;legg fra styret.&#187;</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">8-1 Styret</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 8-1 (1) &#8211; Maks antall styremedlemmer: 4 &#8594; 6</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...et styre som skal best&#229; av en styreleder og to til <strong>fire</strong> andre medlemmer med minst to varamedlemmer.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...et styre som skal best&#229; av en styreleder og to til <strong>seks</strong> andre medlemmer. Det skal velges minst to varamedlemmer.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">8-3 Styrets vedtak</div>
+
+  <div class="card">
+    <div class="card-header del"><span class="badge badge-del">Fjernet</span> 8-3 (1) &#8211; Kravet om en tredjedels st&#248;tte for vedtak som inneb&#230;rer endring er fjernet</div>
+    <div class="card-body">
+      <div class="del-panel">
+        Fjernet setning: <em>&#171;De som stemmer for et vedtak som inneb&#230;rer en endring, m&#229; likevel utgj&#248;re minst en tredjedel av alle styremedlemmene.&#187;</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 8-3 (2) &#8211; Nummerert liste (1. 2. 3.) &#8594; bulletpunkter</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (nummerert)</div>
+          Styret kan ikke... fatte vedtak om:<br>
+          1. ombygging, p&#229;bygging...<br>
+          2. &#229; &#248;ke tallet p&#229; andeler...<br>
+          3. salg eller kj&#248;p av fast eiendom...<br>
+          4. &#229; ta opp l&#229;n...<br>
+          5. andre rettslige disposisjoner...<br>
+          6. andre tiltak som g&#229;r ut over vanlig forvaltning...
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (bulletpunkter)</div>
+          Styret kan ikke... fatte vedtak om:<br>
+          ? ombygging, p&#229;bygging...<br>
+          ? &#229; &#248;ke tallet p&#229; andeler...<br>
+          ? salg eller kj&#248;p av fast eiendom...<br>
+          ? &#229; ta opp l&#229;n...<br>
+          ? andre rettslige disposisjoner...<br>
+          ? andre tiltak som g&#229;r ut over vanlig forvaltning...
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">9-4 Saker p&#229; ordin&#230;r generalforsamling</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 9-4 &#8211; Bulletpunkter med bindestrek &#8594; nummerert liste (1&#8211;7)</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere (bulletpunkter)</div>
+          - Godkjenning av &#229;rsberetning fra styret<br>
+          - Godkjenning av &#229;rsregnskap<br>
+          - Valg av styremedlemmer og varamedlemmer<br>
+          - Valg av delegert med vara til OBOS BBLs generalforsamling<br>
+          - Eventuelt valg av revisor<br>
+          - Fastsetting av godtgj&#248;relse til styret<br>
+          - Andre saker som er nevnt i innkallingen
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229; (nummerert med innledning)</div>
+          Ordin&#230;r generalforsamling skal behandle f&#248;lgende saker:<br>
+          1. Godkjenning av &#229;rsberetning fra styret<br>
+          2. Godkjenning av &#229;rsregnskap<br>
+          3. Valg av styremedlemmer og varamedlemmer<br>
+          4. Valg av delegert med vara til OBOS BBLs generalforsamling<br>
+          5. Eventuelt valg av revisor<br>
+          6. Fastsetting av godtgj&#248;relse til styret<br>
+          7. Andre saker som er nevnt i innkallingen
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">9-5 M&#248;terett</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 9-5 &#8211; &#171;leiere&#187; &#8594; &#171;leietakere&#187;</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...og eventuelle <strong>leiere</strong> har rett til &#229; v&#230;re til stede og til &#229; uttale seg.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...og eventuelle <strong>leietakere</strong> har rett til &#229; v&#230;re til stede og til &#229; uttale seg.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">11-2 Forholdet til borettslovene</div>
+
+  <div class="card">
+    <div class="card-header chg"><span class="badge badge-chg">Endret</span> 11-2 &#8211; Boligbyggelagsloven n&#229; referert med fullt navn og lovnummer</div>
+    <div class="card-body">
+      <div class="panels">
+        <div class="panel before">
+          <div class="panel-label">Tidligere</div>
+          ...reglene i lov om borettslag av 06.06.2003 nr. 39, jf. <strong>lov om boligbyggelag av samme dato</strong>.
+        </div>
+        <div class="panel after">
+          <div class="panel-label">N&#229;</div>
+          ...reglene i borettslagsloven og <strong>lov om boligbyggelag av 6. juni 2003 nr. 38 (boligbyggelagsloven)</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-heading">Vedlegg</div>
+
+  <div class="card">
+    <div class="card-header add"><span class="badge badge-add">Ny</span> Vedlegg 1 &#8211; Eksplisitt seksjon i vedtektene</div>
+    <div class="card-body">
+      <div class="single-panel">
+        Vedlegg 1 &#8211; Oversikt over tilknyttede garasjeplasser og sportsboder er n&#229; eksplisitt nevnt som en egen seksjon i vedtektene (&#224; jour per 09.05.2022; kan oppdateres av styret/forretningsf&#248;rer uten vedtektsendring).
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #vedtekter -->
+
+<script>
+function showDoc(id, btn) {
+  document.querySelectorAll('.doc-section').forEach(function(s){ s.classList.remove('visible'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById(id).classList.add('visible');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
